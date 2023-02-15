@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "830245743790",
+    "project_id": "srec-library-1",
+    "storage_bucket": "srec-library-1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:830245743790:android:12e3ba5193273ce0e3113f",
+        "android_client_info": {
+          "package_name": "com.example.srec_library"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "830245743790-387bbdl72juops3h3bbbf229dl3q1gmr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCinp_-h7J8CcFPkWlMNWsPfIsIHlkDnbk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "830245743790-387bbdl72juops3h3bbbf229dl3q1gmr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
