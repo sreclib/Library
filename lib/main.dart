@@ -17,7 +17,6 @@ import 'package:srec_library/tes5.dart';
 import 'package:srec_library/test10.dart';
 import 'package:srec_library/test4.dart';
 import 'package:srec_library/test6.dart';
-import 'package:srec_library/test7.dart';
 import 'package:srec_library/test8.dart';
 import 'package:srec_library/test9.dart';
 import 'package:srec_library/testangry.dart';
@@ -81,7 +80,7 @@ class MyApp extends StatelessWidget {
       //     }
       //   },
       // ));
-      home: Ad_books(),
+      home: Home(),
     );
   }
 }

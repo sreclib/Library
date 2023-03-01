@@ -8,9 +8,10 @@ class Ad_books extends StatefulWidget {
 }
 
 class _Ad_books extends State<Ad_books> {
-  CollectionReference ref = FirebaseFirestore.instance.collection('users');
-  // .doc(uid)
-  // .collection('lendbook');
+  CollectionReference ref = FirebaseFirestore.instance
+      .collection('users');
+      // .doc(uid)
+      // .collection('lendbook');
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +84,7 @@ class _Ad_books extends State<Ad_books> {
                         ),
                         iconColor: Color.fromARGB(255, 79, 18, 80),
                         title: Text(
-                          doc['Book name'],
+                          doc['name'],
                           style: TextStyle(
                             fontSize: 18,
                           ),

@@ -195,7 +195,7 @@ class _Admin_uploadState extends State<Admin_upload> {
       );
   // ignore: dead_code
   Future createBookdata(Bookdata book) async {
-    final docBookdata = FirebaseFirestore.instance.collection('Bookdata').doc();
+    final docBookdata = FirebaseFirestore.instance.collection('takenbook').doc();
     final json = book.toJson();
     await docBookdata.set(json);
   }

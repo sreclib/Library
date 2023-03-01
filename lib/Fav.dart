@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:srec_library/Settings.dart';
 import 'package:srec_library/Utility.dart';
 import 'package:srec_library/bro.dart';
 import 'package:srec_library/tes5.dart';
@@ -17,10 +18,7 @@ class Fav extends StatefulWidget {
 }
 
 class _Fav extends State<Fav> {
-  CollectionReference ref = FirebaseFirestore.instance
-      .collection('users')
-      .doc(FirebaseAuth.instance.currentUser!.uid)
-      .collection('fav');
+  CollectionReference ref = FirebaseFirestore.instance.collection('users');
 
   @override
   Widget build(BuildContext context) {
@@ -99,7 +97,7 @@ class _Fav extends State<Fav> {
                           ),
                           iconColor: Color.fromARGB(255, 79, 18, 80),
                           title: Text(
-                            doc['Book name'],
+                            doc['Book id'],
                             style: TextStyle(
                               fontSize: 18,
                             ),
@@ -193,8 +191,8 @@ class _Fav extends State<Fav> {
                   splashColor: Color.fromARGB(255, 156, 83, 230),
                   color: Color.fromARGB(255, 156, 83, 230),
                   onPressed: () {
-                    // Navigator.push(context,
-                    //     MaterialPageRoute(builder: (context) => Set()));
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => Set1()));
                   },
                 ),
                 IconButton(

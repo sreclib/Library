@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:srec_library/Settings.dart';
 import 'package:srec_library/Utility.dart';
 import 'package:srec_library/bro.dart';
 import 'package:srec_library/tes5.dart';
@@ -214,8 +215,8 @@ class _My_book extends State<My_book> {
                   splashColor: Color.fromARGB(255, 156, 83, 230),
                   color: Color.fromARGB(255, 156, 83, 230),
                   onPressed: () {
-                    // Navigator.push(context,
-                    //     MaterialPageRoute(builder: (context) => Set()));
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => Set1()));
                   },
                 ),
                 IconButton(

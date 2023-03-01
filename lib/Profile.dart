@@ -1,4 +1,5 @@
 import 'dart:typed_data';
+import 'package:srec_library/Settings.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -34,11 +35,10 @@ class _ProfileState extends State<Profile> {
   static bool canEdit = true;
 
   Widget build(BuildContext context) {
-    // CollectionReference ref = FirebaseFirestore.instance
-    //     .collection('users')
-    //     .doc(FirebaseAuth.instance.currentUser!.uid)
-    //     .collection('lendbook');
-
+    Stream ref = FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .snapshots();
     deviceWidth = MediaQuery.of(context).size.width;
     deviceHeight = MediaQuery.of(context).size.height;
 
@@ -57,21 +57,16 @@ class _ProfileState extends State<Profile> {
                 ),
               ),
               onPressed: () {
-                // Navigator.push(
-                //     context, MaterialPageRoute(builder: (context) => Home()));
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => Home()));
               },
             ),
             actions: [
-              TextButton(
-                child: Text(
-                  "Done",
-                  style: TextStyle(
-                    fontSize: 17,
-                    color: Color.fromARGB(255, 118, 42, 131),
-                  ),
-                ),
+              IconButton(
+                color: Color.fromARGB(255, 118, 42, 131),
+                icon: Icon(Icons.menu),
                 onPressed: () {
-                  namecontroller.clear();
+
                 },
               ),
             ],
@@ -176,7 +171,86 @@ class _ProfileState extends State<Profile> {
                   ],
                 ),
               ),
-            
+              Padding(
+                padding: const EdgeInsets.only(top: 15),
+                child: StreamBuilder(
+                  stream: ref,
+                  builder: (context, AsyncSnapshot snapshot) {
+                    if (snapshot.hasError) {
+                      return Text('Something went wrong! ${snapshot.error}');
+                    } else if (snapshot.hasData) {
+                      return Padding(
+                        padding: const EdgeInsets.only(top: 10),
+                        child: Column(children: [
+                          SizedBox(
+                            height: 60,
+                            width: 360,
+                            child: Container(
+                              // color: kPrimaryLightColor,
+                              decoration: ShapeDecoration(
+                                color: kPrimaryLightColor,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(40),
+                                ),
+                              ),
+
+                              child: ListTile(
+                                splashColor: Color.fromARGB(255, 118, 42, 131),
+                                title: Wrap(
+                                  children: [
+                                    Text(
+                                      ' Name :  ' + snapshot.data['name'],
+                                      style: TextStyle(
+                                          color:
+                                              Color.fromARGB(255, 118, 42, 131),
+                                          fontSize: 17),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 15),
+                            child: SizedBox(
+                              height: 60,
+                              width: 360,
+                              child: Container(
+                                // color: kPrimaryLightColor,
+                                decoration: ShapeDecoration(
+                                  color: kPrimaryLightColor,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(40),
+                                  ),
+                                ),
+
+                                child: ListTile(
+
+                                  splashColor:
+                                      Color.fromARGB(255, 118, 42, 131),
+                                  title: Wrap(
+                                    children: [
+                                      Text(
+                                        ' Email ID :  ' + snapshot.data['email'],
+                                        style: TextStyle(
+                                            color: Color.fromARGB(
+                                                255, 118, 42, 131),
+                                            fontSize: 17),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ]),
+                      );
+                    } else {
+                      return Center(child: CircularProgressIndicator());
+                    }
+                  },
+                ),
+              ),
             ],
           ),
           floatingActionButtonLocation:
@@ -220,8 +294,8 @@ class _ProfileState extends State<Profile> {
                     splashColor: Color.fromARGB(255, 156, 83, 230),
                     color: Color.fromARGB(255, 156, 83, 230),
                     onPressed: () {
-                      // Navigator.push(context,
-                      //     MaterialPageRoute(builder: (context) => Set()));
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Set1()));
                     },
                   ),
                   IconButton(

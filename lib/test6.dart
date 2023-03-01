@@ -27,31 +27,37 @@ class _HomeState extends State<Home> {
            automaticallyImplyLeading: false,
             backgroundColor: Color.fromARGB(255, 156, 83, 230),
             title: const Text("Library"),
-            actions: <Widget>[
-              IconButton(
-                  onPressed: () async {
-                    await FirebaseAuth.instance.signOut();
-                  },
-                  icon: Icon(Icons.logout_outlined))
-            ]),
+            // actions: <Widget>[
+            //   IconButton(
+            //       onPressed: () async {
+            //         await FirebaseAuth.instance.signOut();
+            //       },
+            //       icon: Icon(Icons.logout_outlined))
+            // ]
+            )
+            ,
         body: Stack(
           children: [
             Padding(
-              padding: const EdgeInsets.only(top: 10),
-              child: TextField(
-                cursorColor: Color.fromARGB(255, 156, 83, 230),
-                decoration: InputDecoration(
-                  focusColor: Color.fromARGB(255, 156, 83, 230),
-                  suffixIcon: Icon(Icons.search),
-                  hintText: 'Search...',
-                  hoverColor: Color.fromARGB(255, 118, 42, 131),
-                  iconColor: Color.fromARGB(255, 118, 42, 131),
+              padding: const EdgeInsets.only(bottom: 570),
+              child: Center(
+                child: SizedBox(height: 50,width: 370,
+                  child: TextField(
+                    cursorColor: Color.fromARGB(255, 156, 83, 230),
+                    decoration: InputDecoration(
+                      focusColor: Color.fromARGB(255, 156, 83, 230),
+                      suffixIcon: Icon(Icons.search),
+                      hintText: 'Search...',
+                      hoverColor: Color.fromARGB(255, 118, 42, 131),
+                      iconColor: Color.fromARGB(255, 118, 42, 131),
+                    ),
+                    onChanged: (val) {
+                      setState(() {
+                        book = val;
+                      });
+                    },
+                  ),
                 ),
-                onChanged: (val) {
-                  setState(() {
-                    book = val;
-                  });
-                },
               ),
             ),
             Padding(
@@ -102,11 +108,7 @@ class _HomeState extends State<Home> {
                                             .update({'like': true})
                                       }
                                   },
-                                  // onPressed: () => setState(
-                                  //     () => _isFavorited[i] = !_isFavorited[i],),
-                                  //   icon: _isFavorited[i]
-                                  //       ? Icon(Icons.favorite)
-                                  //       : Icon(Icons.favorite_border),
+                                  
                                 ),
                                 iconColor: Color.fromARGB(255, 79, 18, 80),
                                 title: Text(
