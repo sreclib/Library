@@ -14,8 +14,12 @@ class Set extends StatefulWidget {
 
 class _SetState extends State<Set> {
   Widget build(BuildContext context) {
-    return Scaffold(
+    return 
+     WillPopScope(
+        onWillPop: () async => false,
+        child: Scaffold(
       appBar: AppBar(
+         automaticallyImplyLeading: false,
         backgroundColor: Color.fromARGB(255, 156, 83, 230),
         title: Text("Settings"),
       ),
@@ -45,6 +49,6 @@ class _SetState extends State<Set> {
           )
         ],
       ),
-    );
+    ));
   }
 }

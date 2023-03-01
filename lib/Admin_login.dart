@@ -8,7 +8,7 @@ import 'package:srec_library/test4.dart';
 import 'package:srec_library/testfinal.dart';
 import 'package:srec_library/testp.dart';
 import 'package:srec_library/testpopz.dart';
-
+import 'Ad_books.dart';
 import 'Home.dart';
 
 class Admin_login extends StatefulWidget {
@@ -53,8 +53,8 @@ class _Admin_loginState extends State<Admin_login> {
                         ),
                       )),
                   onPressed: () {
-                    // Navigator.push(context,
-                    //     MaterialPageRoute(builder: (context) => Home()));
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => Ad_books()));
                   },
                   child: Text(
                     "BOOKS  TAKEN",
@@ -125,4 +125,3 @@ class _Admin_loginState extends State<Admin_login> {
         ));
   }
 }
-//  "B O O K S   T A K E N",

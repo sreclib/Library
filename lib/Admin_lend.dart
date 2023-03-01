@@ -63,7 +63,7 @@ class _Admin_lendState extends State<Admin_lend> {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(top: 40, right: 20, left: 20),
+          padding: const EdgeInsets.only(top: 20, right: 20, left: 20),
           child: TextFormField(
             controller: controllerName,
             textInputAction: TextInputAction.next,

@@ -1,15 +1,19 @@
 import 'dart:typed_data';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:srec_library/test6.dart';
 import 'package:srec_library/testfinal.dart';
 import 'package:srec_library/testp.dart';
 import 'package:srec_library/testpopz.dart';
 
 import 'Color.dart';
+import 'Fav.dart';
+import 'My_book.dart';
 
 class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);
@@ -20,6 +24,7 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> {
   String name = '';
+  String book = '';
   late double deviceHeight;
   late double deviceWidth;
 
@@ -29,261 +34,231 @@ class _ProfileState extends State<Profile> {
   static bool canEdit = true;
 
   Widget build(BuildContext context) {
+    // CollectionReference ref = FirebaseFirestore.instance
+    //     .collection('users')
+    //     .doc(FirebaseAuth.instance.currentUser!.uid)
+    //     .collection('lendbook');
+
     deviceWidth = MediaQuery.of(context).size.width;
     deviceHeight = MediaQuery.of(context).size.height;
-    return Scaffold(
-      appBar: AppBar(
-        leadingWidth: 70,
-        leading: TextButton(
-          child: Text(
-            "Cancel",
-            style: TextStyle(
-              fontSize: 17,
-              color: Color.fromARGB(255, 118, 42, 131),
-            ),
-          ),
-          onPressed: () {
-            // Navigator.push(
-            //     context, MaterialPageRoute(builder: (context) => Home()));
-          },
-        ),
-        actions: [
-          TextButton(
-            child: Text(
-              "Done",
-              style: TextStyle(
-                fontSize: 17,
-                color: Color.fromARGB(255, 118, 42, 131),
+
+    return WillPopScope(
+        onWillPop: () async => false,
+        child: Scaffold(
+          appBar: AppBar(
+            automaticallyImplyLeading: false,
+            leadingWidth: 70,
+            leading: TextButton(
+              child: Text(
+                "Cancel",
+                style: TextStyle(
+                  fontSize: 17,
+                  color: Color.fromARGB(255, 118, 42, 131),
+                ),
               ),
+              onPressed: () {
+                // Navigator.push(
+                //     context, MaterialPageRoute(builder: (context) => Home()));
+              },
             ),
-            onPressed: () {
-              namecontroller.clear();
-            },
-          ),
-        ],
-        title: Center(
-          child: Text(
-            "Edit Profile",
-            style: TextStyle(
-              color: Color.fromARGB(255, 118, 42, 131),
-            ),
-          ),
-        ),
-        backgroundColor: Colors.white,
-        elevation: 1,
-      ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 20.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                SizedBox(
-                  width: 150,
-                  child: AspectRatio(
-                    aspectRatio: 1 / 1,
-                    child: Stack(
-                      children: [
-                        InkWell(
-                          onTap: () async {
-                            final ImagePicker _picker = ImagePicker();
-                            final XFile? image = await _picker.pickImage(
-                                source: ImageSource.gallery);
-                            imageData[0] = await image?.readAsBytes();
-                            setState(() {});
-                          },
-                          child: imageData[0] == null
-                              ? Container(
-                                  decoration: BoxDecoration(
-                                    border: Border.all(
-                                      width: 4,
-                                      color: Color.fromARGB(255, 118, 42, 131),
-                                    ),
-                                    shape: BoxShape.circle,
-                                  ),
-                                  child: const Center(
-                                      child: Icon(
-                                    Icons.person,
-                                    color: Color.fromARGB(255, 118, 42, 131),
-                                    size: 120,
-                                  )),
-                                )
-                              : Container(
-                                  decoration: BoxDecoration(
-                                    border: Border.all(
-                                      width: 4,
-                                      color: Color.fromARGB(255, 118, 42, 131),
-                                    ),
-                                    shape: BoxShape.circle,
-                                    // boxShadow: [
-                                    //   BoxShadow(
-                                    //       spreadRadius: 0,
-                                    //       blurRadius: 2,
-                                    //       color: Colors.black.withOpacity(0.1),
-                                    //       offset: Offset(0, 10))
-                                    // ],
-
-                                    // borderRadius: BorderRadius.circular(bordeR),
-
-                                    image: DecorationImage(
-                                      alignment: Alignment.center,
-                                      fit: BoxFit.contain,
-                                      image: MemoryImage(imageData[0]!),
-                                    ),
-                                  ),
-                                ),
-                        ),
-                        Visibility(
-                          visible: imageData[0] != null,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              IconButton(
-                                onPressed: () {
-                                  imageData[0] = null;
-                                  setState(() {});
-                                },
-                                icon: const Icon(
-                                  Icons.close,
-                                  color: Color.fromARGB(255, 156, 83, 230),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
+            actions: [
+              TextButton(
+                child: Text(
+                  "Done",
+                  style: TextStyle(
+                    fontSize: 17,
+                    color: Color.fromARGB(255, 118, 42, 131),
                   ),
                 ),
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 10, right: 20, left: 20),
-            child: TextFormField(
-              keyboardType: TextInputType.emailAddress,
-              textInputAction: TextInputAction.next,
-              cursorColor: kPrimaryColor,
-              autocorrect: false,
-              onChanged: (value) {
-                name = value;
-              },
-              decoration: InputDecoration(
-                hintText: " Name",
-                suffixIcon: Padding(
-                    padding: const EdgeInsets.all(defaultPadding),
-                    child: Icon(Icons.verified_user_sharp)),
-                prefixIcon: Padding(
-                    padding: const EdgeInsets.all(defaultPadding),
-                    child: Icon(Icons.nest_cam_wired_stand)),
+                onPressed: () {
+                  namecontroller.clear();
+                },
               ),
-              validator: (value) {
-                if (value!.isEmpty) {
-                  return 'Enter the name';
-                } else {
-                  return null;
-                }
-              },
-              onSaved: (value) {
-                setState(() {
-                  name = value!;
-                });
-              },
+            ],
+            title: Center(
+              child: Text(
+                "Edit Profile",
+                style: TextStyle(
+                  color: Color.fromARGB(255, 118, 42, 131),
+                ),
+              ),
+            ),
+            backgroundColor: Colors.white,
+            elevation: 1,
+          ),
+          body: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 20.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    SizedBox(
+                      width: 150,
+                      child: AspectRatio(
+                        aspectRatio: 1 / 1,
+                        child: Stack(
+                          children: [
+                            InkWell(
+                              onTap: () async {
+                                final ImagePicker _picker = ImagePicker();
+                                final XFile? image = await _picker.pickImage(
+                                    source: ImageSource.gallery);
+                                imageData[0] = await image?.readAsBytes();
+                                setState(() {});
+                              },
+                              child: imageData[0] == null
+                                  ? Container(
+                                      decoration: BoxDecoration(
+                                        border: Border.all(
+                                          width: 4,
+                                          color:
+                                              Color.fromARGB(255, 118, 42, 131),
+                                        ),
+                                        shape: BoxShape.circle,
+                                      ),
+                                      child: const Center(
+                                          child: Icon(
+                                        Icons.person,
+                                        color:
+                                            Color.fromARGB(255, 118, 42, 131),
+                                        size: 120,
+                                      )),
+                                    )
+                                  : Container(
+                                      decoration: BoxDecoration(
+                                        border: Border.all(
+                                          width: 4,
+                                          color:
+                                              Color.fromARGB(255, 118, 42, 131),
+                                        ),
+                                        shape: BoxShape.circle,
+                                        // boxShadow: [
+                                        //   BoxShadow(
+                                        //       spreadRadius: 0,
+                                        //       blurRadius: 2,
+                                        //       color: Colors.black.withOpacity(0.1),
+                                        //       offset: Offset(0, 10))
+                                        // ],
+
+                                        // borderRadius: BorderRadius.circular(bordeR),
+
+                                        image: DecorationImage(
+                                          alignment: Alignment.center,
+                                          fit: BoxFit.contain,
+                                          image: MemoryImage(imageData[0]!),
+                                        ),
+                                      ),
+                                    ),
+                            ),
+                            Visibility(
+                              visible: imageData[0] != null,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  IconButton(
+                                    onPressed: () {
+                                      imageData[0] = null;
+                                      setState(() {});
+                                    },
+                                    icon: const Icon(
+                                      Icons.close,
+                                      color: Color.fromARGB(255, 156, 83, 230),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            
+            ],
+          ),
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerDocked,
+          floatingActionButton: FloatingActionButton(
+            backgroundColor: Color.fromARGB(255, 156, 83, 230),
+            child: const Icon(Icons.home),
+            onPressed: () {
+              Navigator.of(context).push(_createRoute());
+            },
+          ),
+          bottomNavigationBar: SizedBox(
+            height: 50,
+            child: BottomAppBar(
+              shape: const CircularNotchedRectangle(),
+              notchMargin: 4.0,
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  IconButton(
+                    icon: Icon(Icons.book_rounded),
+                    color: Color.fromARGB(255, 156, 83, 230),
+                    splashColor: Color.fromARGB(255, 156, 83, 230),
+                    onPressed: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => My_book()));
+                    },
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.favorite),
+                    color: Color.fromARGB(255, 156, 83, 230),
+                    splashColor: Color.fromARGB(255, 156, 83, 230),
+                    onPressed: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Fav()));
+                    },
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.settings),
+                    splashColor: Color.fromARGB(255, 156, 83, 230),
+                    color: Color.fromARGB(255, 156, 83, 230),
+                    onPressed: () {
+                      // Navigator.push(context,
+                      //     MaterialPageRoute(builder: (context) => Set()));
+                    },
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.person),
+                    splashColor: Color.fromARGB(255, 156, 83, 230),
+                    color: Color.fromARGB(255, 156, 83, 230),
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const Profile()));
+                    },
+                  ),
+                ],
+              ),
             ),
           ),
-          //     Padding(
-          //       padding: const EdgeInsets.only(top: 70),
-          //       child: StreamBuilder<List<User>>(
-          //         stream: readUser(),
-          //         builder: (context, snapshot) {
-          //           if (snapshot.hasError) {
-          //             return Text('Something went wrong! ${snapshot.error}');
-          //           } else if (snapshot.hasData) {
-          //             final User = snapshot.data!;
+        ));
+  }
 
-          //             return Text("d d"
-          //                 //         snapshot.data!.name,
+  Route _createRoute() {
+    return PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) => Home(),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        const begin = Offset(0, 0.8);
 
-          //                 );
-          //           } else {
-          //             return Center(child: CircularProgressIndicator());
-          //           }
-          //         },
-          //       ),
-          //     ),
+        const end = Offset.zero;
+        const curve = Curves.fastLinearToSlowEaseIn;
 
-          //     // Column(
-          //     //   children: [
-          //     //     Padding(
-          //     //       padding: const EdgeInsets.only(top: 30, right: 20, left: 20),
-          //     //       child: TextFormField(
-          //     //         controller: namecontroller,
-          //     //         obscureText: false,
-          //     //         keyboardType: TextInputType.emailAddress,
-          //     //         textInputAction: TextInputAction.next,
-          //     //         cursorColor: kPrimaryColor,
-          //     //         autocorrect: false,
-          //     //         onChanged: (value) {
-          //     //           namecontroller = value as TextEditingController;
-          //     //         },
-          //     //         decoration: const InputDecoration(
-          //     //           hintText: " Name",
-          //     //           prefixIcon: Padding(
-          //     //             padding: EdgeInsets.all(defaultPadding),
-          //     //             child: Icon(Icons.person),
-          //     //           ),
-          //     //         ),
-          //     // validator: (value) {
-          //     //   if (value!.isEmpty) {
-          //     //     return 'Please Enter Your name';
-          //     //   } else {
-          //     //     return null;
-          //     //   }
-          //     // },
-          //     // onSaved: (value) {
-          //     //   setState(() {
-          //     //     Name = value!;
-          //     //   });
-          //     // },
-          //     //   ),
-          //     // ),
-          //     // SizedBox(
-          //     //     height: 40,
-          //     //     width: 100,
-          //     //     child: ElevatedButton(
-          //     //         onPressed: () async {
-          //     //        namecontroller.text;
-          //     //         },
-          //     //         child: Text("c d")))
-          //   ],
-          // ),
-        ],
-      ),
+        var tween =
+            Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+        return SlideTransition(
+          position: animation.drive(tween),
+          child: child,
+        );
+      },
     );
   }
 }
- 
-
-// Future createUser(User user) async {
-//   final docUser = FirebaseFirestore.instance.collection('users').doc();
-//   final json = user.toJson();
-//   await docUser.set(json);
-// }
-
-// class User {
-  // final String name;
-  // final String age;
-  // final String birthday;
-
-//   User({
-//     required this.name,
-//     // required this.age,
-//     // required this.birthday,
-//   });
-//   Map<String, dynamic> toJson() => {
-//         'name': name,
-//         // 'age': age,
-//         // 'birthday': birthday,
-//       };
-// }

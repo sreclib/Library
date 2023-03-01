@@ -1,188 +1,259 @@
-import 'dart:convert';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:srec_library/Auth.dart';
-import 'package:srec_library/Fpasswrd.dart';
-import 'package:srec_library/Fpasswrd.dart';
-import 'package:srec_library/Fpasswrd.dart';
-import 'package:srec_library/testpopz.dart';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:srec_library/Utility.dart';
+import 'package:srec_library/bro.dart';
+import 'package:srec_library/tes5.dart';
+import 'package:srec_library/test6.dart';
+
+import 'Fav.dart';
+import 'Profile.dart';
 
 class My_book extends StatefulWidget {
-  final currentUser = FirebaseAuth.instance;
+  // const My_book({Key key}) : super(key: key);
+
   @override
-  _My_bookState createState() => _My_bookState();
+  State<My_book> createState() => _My_book();
 }
 
-class _My_bookState extends State<My_book> {
-  final controllerBookName = TextEditingController();
-  final controllerBookId = TextEditingController();
-  final controllerAuthorName = TextEditingController();
-  final controllerPublisherName = TextEditingController();
-  final controllerEdition = TextEditingController();
+class _My_book extends State<My_book> {
+  CollectionReference ref = FirebaseFirestore.instance
+      .collection('users')
+      .doc(FirebaseAuth.instance.currentUser!.uid)
+      .collection('lendbook');
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Scaffold(
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
           backgroundColor: Color.fromARGB(255, 156, 83, 230),
-          title: Text("Library"),
-          actions: <Widget>[]),
-      body: Stack(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 70),
-            child: StreamBuilder<List<User>>(
-              stream: readUser(),
-              builder: (context, snapshot) {
-                if (snapshot.hasError) {
-                  return Text('Something went wrong! ${snapshot.error}');
-                } else if (snapshot.hasData) {
-                  final Bookdata = snapshot.data!;
+          title: const Text("Library"),
+          // actions: <Widget>[
+          //   IconButton(
+          //       onPressed: () async {
+          //         // await FirebaseAuth.instance.signOut();
+          //       },
+          //       icon: Icon(Icons.logout_outlined))
+          // ],
+        ),
+        body: Stack(
+          children: [
+            // const Padding(
+            //   padding: EdgeInsets.only(top: 5),
+            //   child: SizedBox(child: buildFloatingSearchBar(context)),
+            // ),
+            Padding(
+              padding: const EdgeInsets.only(top: 15),
+              child: StreamBuilder(
+                stream: ref.snapshots(),
+                builder: (context, AsyncSnapshot snapshot) {
+                  if (snapshot.hasError) {
+                    return Text('Something went wrong! ${snapshot.error}');
+                  } else if (snapshot.hasData) {
+                    return ListView.separated(
+                      scrollDirection: Axis.vertical,
+                      shrinkWrap: true,
+                      physics: const BouncingScrollPhysics(),
+                      itemCount: snapshot.data?.docs.length,
+                      itemBuilder: (context, index) {
+                        dynamic doc = snapshot.data?.docs[index].data();
 
-                  return ListView.separated(
-                    scrollDirection: Axis.vertical,
-                    shrinkWrap: true,
-                    physics: BouncingScrollPhysics(),
-                    itemCount: Bookdata.length,
-                    // dynamic doc = snapshot.data?.docs[index].data();
-
-                    itemBuilder: (context, i) {
-                      return ExpansionTile(
-                        textColor: Colors.black,
-                        // textColor: Color.fromARGB(255, 156, 83, 230),
-
-                        iconColor: Color.fromARGB(255, 79, 18, 80),
-
-                        title: Text(
-                          snapshot.data![i].popz,
-                          style: TextStyle(
-                            fontSize: 18,
+                        return ExpansionTile(
+                          textColor: Color.fromARGB(255, 156, 83, 230),
+                          trailing: IconButton(
+                            color: Color.fromARGB(255, 156, 83, 230),
+                            icon: (doc['like'] == true)
+                                ? Icon(Icons.favorite)
+                                : Icon(Icons.favorite_outline_outlined),
+                            onPressed: () => {
+                              // for favourite and un-favourite
+                              if (doc['like'] == true)
+                                {
+                                  FirebaseFirestore.instance
+                                      .collection('users')
+                                      .doc(FirebaseAuth
+                                          .instance.currentUser!.uid)
+                                      .collection('lendbook')
+                                      .doc(doc['Book id'])
+                                      .update({'like': false})
+                                }
+                              else
+                                {
+                                  FirebaseFirestore.instance
+                                      .collection('template')
+                                      .doc(FirebaseAuth
+                                          .instance.currentUser!.uid)
+                                      .collection('lendbook')
+                                      .doc(doc['Book id'])
+                                      .update({'like': true})
+                                }
+                            },
+                            // onPressed: () => setState(
+                            //     () => _isFavorited[i] = !_isFavorited[i],),
+                            //   icon: _isFavorited[i]
+                            //       ? Icon(Icons.favorite)
+                            //       : Icon(Icons.favorite_border),
                           ),
-                        ),
-                        children: <Widget>[
-                          Wrap(
-                            alignment: WrapAlignment.start,
-                            runAlignment: WrapAlignment.start,
-                            textDirection: TextDirection.ltr,
-                            children: [
-                              Container(
-                                margin: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-                                child: Text(
-                                  textAlign: TextAlign.left,
-                                  'Author Name : ' + snapshot.data![i].popz,
-                                  style: TextStyle(
-                                    fontSize: 15,
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                margin: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-                                child: Text(
-                                  ', Book Id : ' + snapshot.data![i].popz,
-                                  style: TextStyle(
-                                    fontSize: 15,
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                child: Text(
-                                  ', Edition : ' + snapshot.data![i].popz,
-                                  style: TextStyle(
-                                    fontSize: 15,
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                child: Text(
-                                  ', Publisher Name : ' +
-                                      snapshot.data![i].popz,
-                                  style: TextStyle(
-                                    fontSize: 15,
-                                  ),
-                                ),
-                              ),
-                            ],
+                          iconColor: Color.fromARGB(255, 79, 18, 80),
+                          title: Text(
+                            doc['Book name'],
+                            style: TextStyle(
+                              fontSize: 18,
+                            ),
                           ),
-                        ],
-                      );
-                    },
-                    separatorBuilder: (context, index) => const Divider(
-                      thickness: 2,
+                          children: <Widget>[
+                            Wrap(
+                              textDirection: TextDirection.ltr,
+                              children: [
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                      margin:
+                                          const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                                      child: Text(
+                                        'Book ID: ${doc['Book id']}',
+                                        style: TextStyle(
+                                          fontSize: 15,
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      margin:
+                                          const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                                      child: Text(
+                                        'Author Name: ${doc['Author name']}',
+                                        style: TextStyle(
+                                          fontSize: 15,
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      margin:
+                                          const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                                      child: Text(
+                                        'Publisher name: ${doc['Publisher']}',
+                                        style: TextStyle(
+                                          fontSize: 15,
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      margin:
+                                          const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                                      child: Text(
+                                        'Edition: ${doc['Edition']}',
+                                        style: TextStyle(
+                                          fontSize: 15,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ],
+                        );
+                      },
+                      separatorBuilder: (context, index) => const Divider(
+                        thickness: 2,
 
-                      // height: 15,
-                      color: Color.fromARGB(255, 206, 206, 206),
-                    ),
-                  );
-                } else {
-                  return Center(child: CircularProgressIndicator());
-                }
-              },
+                        // height: 15,
+                        color: Color.fromARGB(255, 206, 206, 206),
+                      ),
+                    );
+                  } else {
+                    return Center(child: CircularProgressIndicator());
+                  }
+                },
+              ),
+            ),
+          ],
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: Color.fromARGB(255, 156, 83, 230),
+          child: const Icon(Icons.home),
+          onPressed: () {
+            Navigator.of(context).push(_createRoute());
+          },
+        ),
+        bottomNavigationBar: SizedBox(
+          height: 50,
+          child: BottomAppBar(
+            shape: const CircularNotchedRectangle(),
+            notchMargin: 4.0,
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                IconButton(
+                  icon: Icon(Icons.book_rounded),
+                  color: Color.fromARGB(255, 156, 83, 230),
+                  splashColor: Color.fromARGB(255, 156, 83, 230),
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => My_book()));
+                  },
+                ),
+                IconButton(
+                  icon: Icon(Icons.favorite),
+                  color: Color.fromARGB(255, 156, 83, 230),
+                  splashColor: Color.fromARGB(255, 156, 83, 230),
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => Fav()));
+                  },
+                ),
+                IconButton(
+                  icon: Icon(Icons.settings),
+                  splashColor: Color.fromARGB(255, 156, 83, 230),
+                  color: Color.fromARGB(255, 156, 83, 230),
+                  onPressed: () {
+                    // Navigator.push(context,
+                    //     MaterialPageRoute(builder: (context) => Set()));
+                  },
+                ),
+                IconButton(
+                  icon: Icon(Icons.person),
+                  splashColor: Color.fromARGB(255, 156, 83, 230),
+                  color: Color.fromARGB(255, 156, 83, 230),
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const Profile()));
+                  },
+                ),
+              ],
             ),
           ),
-        ],
+        ),
       ),
     );
   }
 
-  Stream<List<User>> readUser() => FirebaseFirestore.instance
-      .collection('users')
-      .doc(FirebaseAuth.instance.currentUser!.uid)
-      .collection('lendbook')
-      .snapshots()
-      .map((snapshot) =>
-          snapshot.docs.map((doc) => User.fromJson(doc.data())).toList());
-  Future createUser(User user) async {
-    final docUser = FirebaseFirestore.instance.collection('users').doc();
-    final json = user.toJson();
-    await docUser.set(json);
+  Route _createRoute() {
+    return PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) => Home(),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        const begin = Offset(0, 0.8);
+
+        const end = Offset.zero;
+        const curve = Curves.fastLinearToSlowEaseIn;
+
+        var tween =
+            Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+        return SlideTransition(
+          position: animation.drive(tween),
+          child: child,
+        );
+      },
+    );
   }
 }
-
-class User {
-  List<String> contents = [];
-
-  // final String uid;
-  // final String name;
-  // final String bookId;
-  final String popz;
-
-  // final String emailId;
-  // final String lend;
-
-  User({
-    // required this.uid,
-    // required this.name,
-    // required this.bookId,
-    required this.popz,
-    // required this.emailId,
-    // required this.lend,
-  });
-  Map<String, dynamic> toJson() => {
-        // 'uid': uid,
-        // 'name': name,
-        'popz': popz,
-        // 'Book id': bookId,
-        // 'lend': lend,
-        // 'email': emailId,
-      };
-  static User fromJson(Map<String, dynamic> json) => User(
-        // uid: json['uid'],
-        // name: json['name'],
-        // bookId: json['Book id'],
-        // lend: json['lend'],
-        popz: json['popz'],
-        // emailId: json['email'],
-      );
-}
-
-List<User> book = [
-  User(
-    // name: json.toString(),
-    // bookId: json.toString(),
-    // uid: json.toString(),
-    // lend: json.toString(),
-    popz: json.toString(),
-    // emailId: json.toString(),
-  ),
-];

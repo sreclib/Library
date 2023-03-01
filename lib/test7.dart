@@ -1,34 +1,35 @@
-// import 'package:flutter/material.dart';
-// import 'package:flutter/src/widgets/framework.dart';
-// import 'package:flutter/src/widgets/placeholder.dart';
-// import 'package:shared_preferences/shared_preferences.dart';
+// import 'package:cloud_firestore/cloud_firestore.dart';
+// import 'package:flutter/cupertino.dart';
 
-// class notes extends StatefulWidget {
-//   const notes({super.key});
+// class GetUserName extends StatelessWidget {
+//   final String documentId;
 
-//   @override
-//   State<notes> createState() => _notesState();
-// }
-
-// class _notesState extends State<notes> {
-//   String? noteValue;
-//   void initState() {
-//     super.initState();
-//     getNotes();
-//   }
+//   const GetUserName(this.documentId, [documentId],);
 
 //   @override
 //   Widget build(BuildContext context) {
-//     return const Scaffold(
-//       body: Center(
-//         child: noteValue == null ? Text('no notes') : Text(noteValue!),
-//       ),
-//     );
-//   }
+//     CollectionReference users = FirebaseFirestore.instance.collection('users');
 
-//   void getNotes() async {
-//     final SharedPreferences pref = await SharedPreferences.getInstance();
-//     noteValue = pref.getString('noteData');
-//     setState(() {});
+//     return FutureBuilder<DocumentSnapshot>(
+//       future: users.doc(documentId).get(),
+//       builder:
+//           (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+
+//         if (snapshot.hasError) {
+//           return Text("Something went wrong");
+//         }
+
+//         if (snapshot.hasData && !snapshot.data!.exists) {
+//           return Text("Document does not exist");
+//         }
+
+//         if (snapshot.connectionState == ConnectionState.done) {
+//           Map<String, dynamic> data = snapshot.data!.data() as Map<String, dynamic>;
+//           return Text("Full Name: ${data['name']} ${data['email']}");
+//         }
+
+//         return Text("loading");
+//       },
+//     );
 //   }
 // }

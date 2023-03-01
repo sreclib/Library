@@ -7,7 +7,6 @@ import 'Auth.dart';
 import 'Color.dart';
 import 'Flushbar.dart';
 import 'Home.dart';
-import 'Otp.dart';
 
 class Sign_up extends StatefulWidget {
   const Sign_up({Key? key}) : super(key: key);

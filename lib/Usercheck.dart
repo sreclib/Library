@@ -1,22 +1,22 @@
 
-// import 'package:firebase_auth/firebase_auth.dart';
-// import 'package:flutter/material.dart';
-// import 'package:flutter/src/widgets/framework.dart';
-// import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter/src/widgets/placeholder.dart';
 
-// class Home extends StatefulWidget {
-//   const Home({super.key});
+class Check extends StatefulWidget {
+  const Check({super.key});
 
-//   @override
-//   State<Home> createState() => _HomeState();
-// }
+  @override
+  State<Check> createState() => _CheckState();
+}
 
-// class _HomeState extends State<Home> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return  Center(
-//       child: Text(FirebaseAuth.instance.currentUser!.uid),
+class _CheckState extends State<Check> {
+  @override
+  Widget build(BuildContext context) {
+    return  Center(
+      child: Text(FirebaseAuth.instance.currentUser!.uid),
       
-//     );
-//   }
-// }
+    );
+  }
+}

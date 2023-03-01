@@ -225,4 +225,6 @@ class Bookdata {
         'Publisher': publisher,
         'Edition': edition,
       };
+
+  static fromJson(data) {}
 }

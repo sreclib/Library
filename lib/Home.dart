@@ -129,8 +129,8 @@
 //                 splashColor: Color.fromARGB(255, 156, 83, 230),
 //                 color: Color.fromARGB(255, 156, 83, 230),
 //                 onPressed: () {
-//                   Navigator.push(context,
-//                       MaterialPageRoute(builder: (context) => Settings()));
+//                   // Navigator.push(context,
+//                   //     MaterialPageRoute(builder: (context) => Settings()));
 //                 },
 //               ),
 //               IconButton(
