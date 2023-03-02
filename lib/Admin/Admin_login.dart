@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:srec_library/Admin_lend.dart';
-import 'package:srec_library/Admin_upload.dart';
-import 'package:srec_library/Login.dart';
-import 'package:srec_library/test4.dart';
-import 'package:srec_library/testfinal.dart';
-import 'package:srec_library/testp.dart';
-import 'package:srec_library/testpopz.dart';
+
+import '../Login.dart';
 import 'Ad_books.dart';
-import 'Home.dart';
+import 'Admin_lend.dart';
+import 'Admin_upload.dart';
+
 
 class Admin_login extends StatefulWidget {
   const Admin_login({Key? key}) : super(key: key);

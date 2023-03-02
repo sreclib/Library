@@ -7,13 +7,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:srec_library/test6.dart';
-import 'package:srec_library/testfinal.dart';
-import 'package:srec_library/testp.dart';
-import 'package:srec_library/testpopz.dart';
+import 'package:srec_library/test/test6.dart';
 
 import 'Color.dart';
 import 'Fav.dart';
+import 'Home.dart';
 import 'My_book.dart';
 
 class Profile extends StatefulWidget {

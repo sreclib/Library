@@ -5,7 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:srec_library/test2.dart';
+import 'package:srec_library/test/test2.dart';
 
 class test extends StatefulWidget {
   const test({super.key});

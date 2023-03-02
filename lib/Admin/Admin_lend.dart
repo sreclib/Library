@@ -6,19 +6,20 @@ import 'package:flutter/src/widgets/container.dart';
 
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:srec_library/Admin_login.dart';
-import 'package:srec_library/test.dart';
-import 'Color.dart';
-import 'Home.dart';
 
-class Admin_upload extends StatefulWidget {
-  const Admin_upload({Key? key}) : super(key: key);
+import '../Color.dart';
 
-  State<Admin_upload> createState() => _Admin_uploadState();
+
+class Admin_lend extends StatefulWidget {
+  const Admin_lend({Key? key}) : super(key: key);
+
+  State<Admin_lend> createState() => _Admin_lendState();
 }
 
-class _Admin_uploadState extends State<Admin_upload> {
+class _Admin_lendState extends State<Admin_lend> {
   final controllerBookName = TextEditingController();
+  final controllerRollNo = TextEditingController();
+
   final controllerBookId = TextEditingController();
   final controllerAuthorName = TextEditingController();
   final controllerPublisherName = TextEditingController();
@@ -50,6 +51,24 @@ class _Admin_uploadState extends State<Admin_upload> {
         body: ListView(children: [
           Padding(
             padding: const EdgeInsets.only(top: 40, right: 20, left: 20),
+            child: TextFormField(
+              controller: controllerRollNo,
+              textInputAction: TextInputAction.next,
+              cursorColor: kPrimaryColor,
+              autocorrect: false,
+              decoration: InputDecoration(
+                hintText: " Roll No",
+                // hintText: '  name.roll_no@srec.ac.in'),
+                prefixIcon: Padding(
+                    padding: const EdgeInsets.all(defaultPadding),
+                    child: Icon(
+                      Icons.book_outlined,
+                    )),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 20, right: 20, left: 20),
             child: TextFormField(
               controller: controllerBookName,
               textInputAction: TextInputAction.next,
@@ -200,7 +219,6 @@ class _Admin_uploadState extends State<Admin_upload> {
     await docBookdata.set(json);
   }
 }
-
 class Bookdata {
   // final String id;
   final String bookId;

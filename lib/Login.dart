@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:srec_library/Admin_login.dart';
 import 'package:srec_library/Color.dart';
 import 'package:srec_library/Fpasswrd.dart';
 import 'package:srec_library/Home.dart';
