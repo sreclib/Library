@@ -80,7 +80,7 @@ class MyApp extends StatelessWidget {
       //     }
       //   },
       // ));
-      home: Home(),
+      home: Ad_books(),
     );
   }
 }

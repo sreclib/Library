@@ -8,10 +8,7 @@ class Ad_books extends StatefulWidget {
 }
 
 class _Ad_books extends State<Ad_books> {
-  CollectionReference ref = FirebaseFirestore.instance
-      .collection('users');
-      // .doc(uid)
-      // .collection('lendbook');
+  CollectionReference ref = FirebaseFirestore.instance.collection('users');
 
   @override
   Widget build(BuildContext context) {
