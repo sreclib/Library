@@ -9,7 +9,7 @@ class Ad_books extends StatefulWidget {
 
 class _Ad_books extends State<Ad_books> {
   CollectionReference ref = FirebaseFirestore.instance.collection('takenbook');
-
+  String book = '';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,126 +30,203 @@ class _Ad_books extends State<Ad_books> {
           //   child: SizedBox(child: buildFloatingSearchBar(context)),
           // ),
           Padding(
-            padding: const EdgeInsets.only(top: 15),
-            child: StreamBuilder(
-              stream: ref.snapshots(),
-              builder: (context, AsyncSnapshot snapshot) {
-                if (snapshot.hasError) {
-                  return Text('Something went wrong! ${snapshot.error}');
-                } else if (snapshot.hasData) {
-                  return ListView.separated(
-                    scrollDirection: Axis.vertical,
-                    shrinkWrap: true,
-                    physics: const BouncingScrollPhysics(),
-                    itemCount: snapshot.data?.docs.length,
-                    itemBuilder: (context, index) {
-                      dynamic doc = snapshot.data?.docs[index].data();
+            padding: const EdgeInsets.only(top: 10,left: 12),
+            child: SizedBox(
+              height: 50,
+              width: 370,
+              child: TextField(
+                cursorColor: Color.fromARGB(255, 156, 83, 230),
+                decoration: InputDecoration(
+                  focusColor: Color.fromARGB(255, 156, 83, 230),
+                  suffixIcon: Icon(Icons.search),
+                  hintText: 'Search...',
+                  hoverColor: Color.fromARGB(255, 118, 42, 131),
+                  iconColor: Color.fromARGB(255, 118, 42, 131),
+                ),
+                onChanged: (val) {
+                  setState(() {
+                    book = val;
+                  });
+                },
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 70),
+            child: StreamBuilder<QuerySnapshot>(
+              stream: FirebaseFirestore.instance
+                  .collection('takenbook')
+                  .snapshots(),
+              builder: (context, snapshots) {
+                return (snapshots.connectionState == ConnectionState.waiting)
+                    ? Center(
+                        child: CircularProgressIndicator(),
+                      )
+                    : ListView.separated(
+                        itemCount: snapshots.data!.docs.length,
+                        itemBuilder: (context, index) {
+                          var data = snapshots.data!.docs[index].data()
+                              as Map<String, dynamic>;
 
-                      return ExpansionTile(
-                        textColor: Color.fromARGB(255, 156, 83, 230),
-                        trailing: IconButton(
-                          color: Color.fromARGB(255, 156, 83, 230),
-                          icon: (doc['like'] == true)
-                              ? Icon(Icons.favorite)
-                              : Icon(Icons.favorite_outline_outlined),
-                          onPressed: () => {
-                            // for favourite and un-favourite
-                            if (doc['like'] == true)
-                              {
-                                FirebaseFirestore.instance
-                                    .collection('users')
-                                    .doc(FirebaseAuth.instance.currentUser!.uid)
-                                    .collection('lendbook')
-                                    .doc(doc['Book id'])
-                                    .update({'like': false})
-                              }
-                            else
-                              {
-                                FirebaseFirestore.instance
-                                    .collection('template')
-                                    .doc(FirebaseAuth.instance.currentUser!.uid)
-                                    .collection('lendbook')
-                                    .doc(doc['Book id'])
-                                    .update({'like': true})
-                              }
-                          },
-                          // onPressed: () => setState(
-                          //     () => _isFavorited[i] = !_isFavorited[i],),
-                          //   icon: _isFavorited[i]
-                          //       ? Icon(Icons.favorite)
-                          //       : Icon(Icons.favorite_border),
-                        ),
-                        iconColor: Color.fromARGB(255, 79, 18, 80),
-                        title: Text(
-                          doc['Book name'],
-                          style: TextStyle(
-                            fontSize: 18,
-                          ),
-                        ),
-                        children: <Widget>[
-                          Wrap(
-                            textDirection: TextDirection.ltr,
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Container(
-                                    margin:
-                                        const EdgeInsets.fromLTRB(0, 0, 0, 0),
-                                    child: Text(
-                                      'Book ID: ${doc['Book id']}',
-                                      style: TextStyle(
-                                        fontSize: 15,
-                                      ),
-                                    ),
-                                  ),
-                                  Container(
-                                    margin:
-                                        const EdgeInsets.fromLTRB(0, 0, 0, 0),
-                                    child: Text(
-                                      'Author Name: ${doc['Author name']}',
-                                      style: TextStyle(
-                                        fontSize: 15,
-                                      ),
-                                    ),
-                                  ),
-                                  Container(
-                                    margin:
-                                        const EdgeInsets.fromLTRB(0, 0, 0, 0),
-                                    child: Text(
-                                      'Publisher name: ${doc['Publisher']}',
-                                      style: TextStyle(
-                                        fontSize: 15,
-                                      ),
-                                    ),
-                                  ),
-                                  Container(
-                                    margin:
-                                        const EdgeInsets.fromLTRB(0, 0, 0, 0),
-                                    child: Text(
-                                      'Edition: ${doc['Edition']}',
-                                      style: TextStyle(
-                                        fontSize: 15,
-                                      ),
-                                    ),
-                                  ),
-                                ],
+                          if (book.isEmpty) {
+                            return ExpansionTile(
+                              textColor: Color.fromARGB(255, 156, 83, 230),
+                              title: Text(
+                                data['Roll no'],
+                                style: TextStyle(
+                                  fontSize: 18,
+                                ),
                               ),
-                            ],
-                          ),
-                        ],
-                      );
-                    },
-                    separatorBuilder: (context, index) => const Divider(
-                      thickness: 2,
+                              children: <Widget>[
+                                Wrap(
+                                  textDirection: TextDirection.ltr,
+                                  children: [
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Container(
+                                          margin: const EdgeInsets.fromLTRB(
+                                              0, 0, 0, 0),
+                                          child: Text(
+                                            'Book name: ${data['Id']}',
+                                            style: TextStyle(
+                                              fontSize: 15,
+                                            ),
+                                          ),
+                                        ),
+                                        Container(
+                                          margin: const EdgeInsets.fromLTRB(
+                                              0, 0, 0, 0),
+                                          child: Text(
+                                            'Book ID: ${data['Id']}',
+                                            style: TextStyle(
+                                              fontSize: 15,
+                                            ),
+                                          ),
+                                        ),
+                                        Container(
+                                          margin: const EdgeInsets.fromLTRB(
+                                              0, 0, 0, 0),
+                                          child: Text(
+                                            'Author name: ${data['Author name']}',
+                                            style: TextStyle(
+                                              fontSize: 15,
+                                            ),
+                                          ),
+                                        ),
+                                        Container(
+                                          margin: const EdgeInsets.fromLTRB(
+                                              0, 0, 0, 0),
+                                          child: Text(
+                                            'Publisher name:  ${data['Publisher']}',
+                                            style: TextStyle(
+                                              fontSize: 15,
+                                            ),
+                                          ),
+                                        ),
+                                        Container(
+                                          margin: const EdgeInsets.fromLTRB(
+                                              0, 0, 0, 0),
+                                          child: Text(
+                                            'Edition:  ${data['Edition']}',
+                                            style: TextStyle(
+                                              fontSize: 15,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            );
+                          }
+                          if (data['Roll no']
+                              .toString()
+                              .toLowerCase()
+                              .startsWith(book.toLowerCase())) {
+                            return ExpansionTile(
+                              textColor: Color.fromARGB(255, 156, 83, 230),
+                              title: Text(
+                                data['Roll no'],
+                                style: TextStyle(
+                                  fontSize: 18,
+                                ),
+                              ),
+                              children: <Widget>[
+                                Wrap(
+                                  textDirection: TextDirection.ltr,
+                                  children: [
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                          Container(
+                                          margin: const EdgeInsets.fromLTRB(
+                                              0, 0, 0, 0),
+                                          child: Text(
+                                            'Book name: ${data['Id']}',
+                                            style: TextStyle(
+                                              fontSize: 15,
+                                            ),
+                                          ),
+                                        ),
+                                        Container(
+                                          margin: const EdgeInsets.fromLTRB(
+                                              0, 0, 0, 0),
+                                          child: Text(
+                                            'Book ID: ${data['Id']}',
+                                            style: TextStyle(
+                                              fontSize: 15,
+                                            ),
+                                          ),
+                                        ),
+                                        Container(
+                                          margin: const EdgeInsets.fromLTRB(
+                                              0, 0, 0, 0),
+                                          child: Text(
+                                            'Author name: ${data['Author name']}',
+                                            style: TextStyle(
+                                              fontSize: 15,
+                                            ),
+                                          ),
+                                        ),
+                                        Container(
+                                          margin: const EdgeInsets.fromLTRB(
+                                              0, 0, 0, 0),
+                                          child: Text(
+                                            'Publisher name: ${data['Publisher']}',
+                                            style: TextStyle(
+                                              fontSize: 15,
+                                            ),
+                                          ),
+                                        ),
+                                        Container(
+                                          margin: const EdgeInsets.fromLTRB(
+                                              0, 0, 0, 0),
+                                          child: Text(
+                                            'Edition:  ${data['Edition']}',
+                                            style: TextStyle(
+                                              fontSize: 15,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            );
+                          }
+                          return Container();
+                        },
+                        separatorBuilder: (context, index) => const Divider(
+                              thickness: 1,
 
-                      // height: 15,
-                      color: Color.fromARGB(255, 206, 206, 206),
-                    ),
-                  );
-                } else {
-                  return Center(child: CircularProgressIndicator());
-                }
+                              // height: 15,
+                              color: Color.fromARGB(255, 206, 206, 206),
+                            ));
               },
             ),
           ),

@@ -6,6 +6,7 @@ import 'package:srec_library/Home.dart';
 import 'package:srec_library/Reset.dart';
 import 'package:srec_library/Sign_up.dart';
 
+import 'Admin_login.dart';
 import 'Auth.dart';
 import 'Flushbar.dart';
 
@@ -307,8 +308,6 @@ class _LoginState extends State<Login> {
                             EdgeInsets.only(left: 100, top: 20, bottom: 10),
                       ),
                       TextButton(
-                    
-                   
                         onPressed: () {
                           Navigator.push(context,
                               MaterialPageRoute(builder: (_) => Fpassword()));
