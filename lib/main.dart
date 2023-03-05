@@ -1,19 +1,9 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:srec_library/Ad_books.dart';
 
 import 'package:srec_library/Color.dart';
-import 'package:srec_library/Login.dart';
-import 'package:srec_library/My_book.dart';
-import 'package:srec_library/Reset.dart';
-import 'package:srec_library/Settings.dart';
-import 'package:srec_library/Sign_up.dart';
-import 'package:srec_library/bro.dart';
 
-import 'Profile.dart';
-import 'Searchbar.dart';
 import 'firebase_options.dart';
 
 Future main() async {
