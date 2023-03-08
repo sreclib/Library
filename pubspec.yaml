@@ -46,6 +46,8 @@ dependencies:
   shared_preferences: ^2.0.17
   search_app_bar_page: ^2.1.5
   english_words: ^4.0.0
+  google_fonts: ^4.0.3
+
   
   
 
@@ -67,12 +69,14 @@ dev_dependencies:
 flutter:
   uses-material-design: true 
   assets:
-    - images/app half.png
-    - images/app small.png
-    - images/croped.png
-    - images/topbar.png
     - images/downbar.png
     - images/topsbar.png
+    - images/reading.png
+    - images/flop.png
+
+
+
+
     
 
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -86,12 +90,11 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
+  fonts:
+    - family: Signatrue
+      fonts:
+        - asset: fonts/Signatrue.ttf
+        
   #   - family: Trajan Pro
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf

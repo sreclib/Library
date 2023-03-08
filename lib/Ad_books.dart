@@ -30,7 +30,7 @@ class _Ad_books extends State<Ad_books> {
           //   child: SizedBox(child: buildFloatingSearchBar(context)),
           // ),
           Padding(
-            padding: const EdgeInsets.only(top: 10,left: 12),
+            padding: const EdgeInsets.only(top: 10, left: 12),
             child: SizedBox(
               height: 50,
               width: 370,
@@ -162,7 +162,7 @@ class _Ad_books extends State<Ad_books> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                          Container(
+                                        Container(
                                           margin: const EdgeInsets.fromLTRB(
                                               0, 0, 0, 0),
                                           child: Text(

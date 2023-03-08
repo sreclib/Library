@@ -3,8 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:srec_library/Ad_books.dart';
 
 import 'package:srec_library/Color.dart';
-import 'package:srec_library/Login.dart';
+import 'package:srec_library/Student_login.dart';
+import 'package:srec_library/Usercheck.dart';
+import 'package:srec_library/test.dart';
+import 'package:srec_library/testangry.dart';
 
+import 'Home.dart';
+import 'Login.dart';
 import 'firebase_options.dart';
 
 Future main() async {
@@ -59,7 +64,7 @@ class MyApp extends StatelessWidget {
       //     }
       //   },
       // ));
-      home: Login(),
+      home: Home(),
     );
   }
 }
