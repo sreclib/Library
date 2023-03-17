@@ -5,7 +5,6 @@ import 'package:srec_library/Admin_home.dart';
 import 'package:srec_library/Color.dart';
 import 'package:srec_library/Fpasswrd.dart';
 import 'package:srec_library/Home.dart';
-import 'package:srec_library/Reset.dart';
 import 'package:srec_library/Sign_up.dart';
 
 import 'Admin_login.dart';

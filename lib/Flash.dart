@@ -7,7 +7,11 @@ class Flash extends StatefulWidget {
 }
 
 class _FlashState extends State<Flash> {
+   late double deviceHeight;
+  late double deviceWidth;
   Widget build(BuildContext context) {
+        deviceWidth = MediaQuery.of(context).size.width;
+    deviceHeight = MediaQuery.of(context).size.height;
     return Scaffold();
   }
 }

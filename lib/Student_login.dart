@@ -4,7 +4,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:srec_library/Color.dart';
 import 'package:srec_library/Fpasswrd.dart';
 import 'package:srec_library/Home.dart';
-import 'package:srec_library/Reset.dart';
 import 'package:srec_library/Sign_up.dart';
 
 import 'Admin_home.dart';
@@ -69,15 +68,14 @@ class _Student_loginstate extends State<Student_login> {
                   Padding(
                     padding:
                         const EdgeInsets.only(top: 320, right: 280, bottom: 10),
-                    child:Text(
-                      "LOGIN",
-                      style: GoogleFonts.montserrat(
-                  textStyle: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w600,
-                    color: Color.fromARGB(255, 118, 42, 131),
-                  ),)
-                    ),
+                    child: Text("LOGIN",
+                        style: GoogleFonts.montserrat(
+                          textStyle: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w600,
+                            color: Color.fromARGB(255, 118, 42, 131),
+                          ),
+                        )),
                   ),
                   // Padding(
                   //   padding: const EdgeInsets.only(top: 10, left: 20, right: 20),
@@ -307,8 +305,7 @@ class _Student_loginstate extends State<Student_login> {
                   Row(
                     children: [
                       const Padding(
-                        padding:
-                            EdgeInsets.only(left: 100, top: 20, bottom: 0),
+                        padding: EdgeInsets.only(left: 100, top: 20, bottom: 0),
                       ),
                       TextButton(
                         onPressed: () {
@@ -334,11 +331,8 @@ class _Student_loginstate extends State<Student_login> {
                           ),
                         ),
                       ),
-                   
-                      
                     ],
                   ),
-                    
                 ],
               )
             ],

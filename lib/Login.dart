@@ -16,8 +16,11 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+   late double deviceHeight;
+  late double deviceWidth;
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) {    deviceWidth = MediaQuery.of(context).size.width;
+    deviceHeight = MediaQuery.of(context).size.height;
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(

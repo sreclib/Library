@@ -21,8 +21,6 @@ final auth = FirebaseAuth.instance;
 class _FpasswordState extends State<Fpassword> {
   late double deviceHeight;
   late double deviceWidth;
-  // String emailId = "";
-  // String password = "";
 
   Widget build(BuildContext context) {
     deviceWidth = MediaQuery.of(context).size.width;

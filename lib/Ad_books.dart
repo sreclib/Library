@@ -10,8 +10,12 @@ class Ad_books extends StatefulWidget {
 class _Ad_books extends State<Ad_books> {
   CollectionReference ref = FirebaseFirestore.instance.collection('takenbook');
   String book = '';
+   late double deviceHeight;
+  late double deviceWidth;
   @override
   Widget build(BuildContext context) {
+       deviceWidth = MediaQuery.of(context).size.width;
+    deviceHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
           backgroundColor: Color.fromARGB(255, 156, 83, 230),

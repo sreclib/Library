@@ -16,6 +16,8 @@ class Admin_upload extends StatefulWidget {
 }
 
 class _Admin_uploadState extends State<Admin_upload> {
+  late double deviceHeight;
+  late double deviceWidth;
   final controllerBookName = TextEditingController();
   final controllerBookId = TextEditingController();
   final controllerAuthorName = TextEditingController();
@@ -23,174 +25,179 @@ class _Admin_uploadState extends State<Admin_upload> {
   final controllerEdition = TextEditingController();
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-        resizeToAvoidBottomInset: false,
-        appBar: AppBar(
-          backgroundColor: Color.fromARGB(255, 156, 83, 230),
-          title: Text("Library"),
-          // actions: <Widget>[
-          //   IconButton(
-          //       onPressed: () async {
-          //         await FirebaseAuth.instance.signOut();
-          //       },
-          //       icon: Icon(Icons.logout_outlined))
-          // IconButton(
-          //     icon: Icon(
-          //       Icons.login,
-          //       color: Colors.white,
-          //     ),
-          //     onPressed: () {
-          //       // Navigator.push(
-          //       //     context, MaterialPageRoute(builder: (context) => Home()));
-          //     }),
-          // ]
+  Widget build(BuildContext context) {
+    deviceWidth = MediaQuery.of(context).size.width;
+    deviceHeight = MediaQuery.of(context).size.height;
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      appBar: AppBar(
+        backgroundColor: Color.fromARGB(255, 156, 83, 230),
+        title: Text("Library"),
+        // actions: <Widget>[
+        //   IconButton(
+        //       onPressed: () async {
+        //         await FirebaseAuth.instance.signOut();
+        //       },
+        //       icon: Icon(Icons.logout_outlined))
+        // IconButton(
+        //     icon: Icon(
+        //       Icons.login,
+        //       color: Colors.white,
+        //     ),
+        //     onPressed: () {
+        //       // Navigator.push(
+        //       //     context, MaterialPageRoute(builder: (context) => Home()));
+        //     }),
+        // ]
+      ),
+      body: ListView(children: [
+        Padding(
+          padding: const EdgeInsets.only(top: 40, right: 20, left: 20),
+          child: TextFormField(
+            controller: controllerBookName,
+            textInputAction: TextInputAction.next,
+            cursorColor: kPrimaryColor,
+            autocorrect: false,
+            decoration: InputDecoration(
+              hintText: " Book Name",
+              // hintText: '  name.roll_no@srec.ac.in'),
+              prefixIcon: Padding(
+                  padding: const EdgeInsets.all(defaultPadding),
+                  child: Icon(
+                    Icons.book_outlined,
+                  )),
+            ),
+          ),
         ),
-        body: ListView(children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 40, right: 20, left: 20),
-            child: TextFormField(
-              controller: controllerBookName,
-              textInputAction: TextInputAction.next,
-              cursorColor: kPrimaryColor,
-              autocorrect: false,
-              decoration: InputDecoration(
-                hintText: " Book Name",
-                // hintText: '  name.roll_no@srec.ac.in'),
-                prefixIcon: Padding(
-                    padding: const EdgeInsets.all(defaultPadding),
-                    child: Icon(
-                      Icons.book_outlined,
-                    )),
+        Padding(
+          padding: const EdgeInsets.only(top: 20, right: 20, left: 20),
+          child: TextFormField(
+            controller: controllerBookId,
+            textInputAction: TextInputAction.next,
+            cursorColor: kPrimaryColor,
+            autocorrect: false,
+            decoration: InputDecoration(
+              hintText: " Book ID",
+              // hintText: '  name.roll_no@srec.ac.in'),
+              prefixIcon: Padding(
+                padding: const EdgeInsets.all(defaultPadding),
+                child: Icon(Icons.person_outline_rounded),
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(top: 20, right: 20, left: 20),
-            child: TextFormField(
-              controller: controllerBookId,
-              textInputAction: TextInputAction.next,
-              cursorColor: kPrimaryColor,
-              autocorrect: false,
-              decoration: InputDecoration(
-                hintText: " Book ID",
-                // hintText: '  name.roll_no@srec.ac.in'),
-                prefixIcon: Padding(
-                  padding: const EdgeInsets.all(defaultPadding),
-                  child: Icon(Icons.person_outline_rounded),
-                ),
-              ),
-            ),
-          ),
+        ),
 
-          Padding(
-            padding: const EdgeInsets.only(top: 20, right: 20, left: 20),
-            child: TextFormField(
-              controller: controllerAuthorName,
-              textInputAction: TextInputAction.next,
-              cursorColor: kPrimaryColor,
-              autocorrect: false,
-              decoration: InputDecoration(
-                hintText: " Author Name",
-                // hintText: '  name.roll_no@srec.ac.in'),
-                prefixIcon: Padding(
-                  padding: const EdgeInsets.all(defaultPadding),
-                  child: Icon(Icons.person_outline_rounded),
-                ),
+        Padding(
+          padding: const EdgeInsets.only(top: 20, right: 20, left: 20),
+          child: TextFormField(
+            controller: controllerAuthorName,
+            textInputAction: TextInputAction.next,
+            cursorColor: kPrimaryColor,
+            autocorrect: false,
+            decoration: InputDecoration(
+              hintText: " Author Name",
+              // hintText: '  name.roll_no@srec.ac.in'),
+              prefixIcon: Padding(
+                padding: const EdgeInsets.all(defaultPadding),
+                child: Icon(Icons.person_outline_rounded),
               ),
             ),
           ),
-          // Padding(
-          //   padding: const EdgeInsets.only(top: 20, right: 20, left: 20),
-          //   child: TextFormField(
-          //     keyboardType: TextInputType.emailAddress,
-          //     textInputAction: TextInputAction.next,
-          //     cursorColor: kPrimaryColor,
-          //     autocorrect: false,
-          //     onChanged: (value) {
-          //       stock = value;
-          //     },
-          //     decoration: InputDecoration(
-          //       hintText: " Stock",
-          //       // hintText: '  name.roll_no@srec.ac.in'),
-          //       prefixIcon: Padding(
-          //         padding: const EdgeInsets.all(defaultPadding),
-          //         child: Icon(Icons.format_list_numbered_rounded),
-          //       ),
-          //     ),
-          //     // controller: TextEditingController()..text = bookId,
-          //   ),
-          // ),
-          Padding(
-            padding: const EdgeInsets.only(top: 20, right: 20, left: 20),
-            child: TextFormField(
-              controller: controllerPublisherName,
-              textInputAction: TextInputAction.next,
-              cursorColor: kPrimaryColor,
-              autocorrect: false,
-              decoration: InputDecoration(
-                hintText: " Publisher Name",
-                // hintText: '  name.roll_no@srec.ac.in'),
-                prefixIcon: Padding(
-                  padding: const EdgeInsets.all(defaultPadding),
-                  child: Icon(Icons.person_add_alt),
-                ),
+        ),
+        // Padding(
+        //   padding: const EdgeInsets.only(top: 20, right: 20, left: 20),
+        //   child: TextFormField(
+        //     keyboardType: TextInputType.emailAddress,
+        //     textInputAction: TextInputAction.next,
+        //     cursorColor: kPrimaryColor,
+        //     autocorrect: false,
+        //     onChanged: (value) {
+        //       stock = value;
+        //     },
+        //     decoration: InputDecoration(
+        //       hintText: " Stock",
+        //       // hintText: '  name.roll_no@srec.ac.in'),
+        //       prefixIcon: Padding(
+        //         padding: const EdgeInsets.all(defaultPadding),
+        //         child: Icon(Icons.format_list_numbered_rounded),
+        //       ),
+        //     ),
+        //     // controller: TextEditingController()..text = bookId,
+        //   ),
+        // ),
+        Padding(
+          padding: const EdgeInsets.only(top: 20, right: 20, left: 20),
+          child: TextFormField(
+            controller: controllerPublisherName,
+            textInputAction: TextInputAction.next,
+            cursorColor: kPrimaryColor,
+            autocorrect: false,
+            decoration: InputDecoration(
+              hintText: " Publisher Name",
+              // hintText: '  name.roll_no@srec.ac.in'),
+              prefixIcon: Padding(
+                padding: const EdgeInsets.all(defaultPadding),
+                child: Icon(Icons.person_add_alt),
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(top: 20, right: 20, left: 20),
-            child: TextFormField(
-              controller: controllerEdition,
-              textInputAction: TextInputAction.next,
-              cursorColor: kPrimaryColor,
-              autocorrect: false,
-              decoration: InputDecoration(
-                hintText: " Edition",
-                prefixIcon: Padding(
-                  padding: const EdgeInsets.all(defaultPadding),
-                  child: Icon(Icons.star_border_outlined),
-                ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(top: 20, right: 20, left: 20),
+          child: TextFormField(
+            controller: controllerEdition,
+            textInputAction: TextInputAction.next,
+            cursorColor: kPrimaryColor,
+            autocorrect: false,
+            decoration: InputDecoration(
+              hintText: " Edition",
+              prefixIcon: Padding(
+                padding: const EdgeInsets.all(defaultPadding),
+                child: Icon(Icons.star_border_outlined),
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(top: 30, left: 120, right: 120),
-            child: SizedBox(
-              height: 40,
-              width: 100,
-              child: ElevatedButton(
-                style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(
-                      Color.fromARGB(255, 178, 122, 250),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(top: 30, left: 120, right: 120),
+          child: SizedBox(
+            height: 40,
+            width: 100,
+            child: ElevatedButton(
+              style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(
+                    Color.fromARGB(255, 178, 122, 250),
+                  ),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(70.0),
+                      // side: BorderSide(color: Colors.red),
                     ),
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(70.0),
-                        // side: BorderSide(color: Colors.red),
-                      ),
-                    )),
-                onPressed: () {
-                  final book = Bookdata(
-                    bookName: controllerBookName.text,
-                    bookId: controllerBookId.text,
-                    authorName: controllerAuthorName.text,
-                    publisher: controllerPublisherName.text,
-                    edition: controllerEdition.text,
-                  );
-                  createBookdata(book);
+                  )),
+              onPressed: () {
+                final book = Bookdata(
+                  bookName: controllerBookName.text,
+                  bookId: controllerBookId.text,
+                  authorName: controllerAuthorName.text,
+                  publisher: controllerPublisherName.text,
+                  edition: controllerEdition.text,
+                );
+                createBookdata(book);
 
-                  // Navigator.pop(context);
-                },
-                child: Text(
-                  "UPLOAD",
-                  // style: TextStyle(fontSize: 25),
-                ),
+                // Navigator.pop(context);
+              },
+              child: Text(
+                "UPLOAD",
+                // style: TextStyle(fontSize: 25),
               ),
             ),
           ),
-          //
-        ]),
-      );
+        ),
+        //
+      ]),
+    );
+  }
+
   // ignore: dead_code
   Future createBookdata(Bookdata book) async {
     final docBookdata = FirebaseFirestore.instance.collection('Bookdata').doc();

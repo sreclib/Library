@@ -15,12 +15,16 @@ class Sign_up extends StatefulWidget {
 }
 
 class _Sign_upState extends State<Sign_up> {
+   late double deviceHeight;
+  late double deviceWidth;
   final _formKey = GlobalKey<FormState>();
   String name = "";
   String emailId = "";
   String password = "";
   bool login = false;
   Widget build(BuildContext context) {
+        deviceWidth = MediaQuery.of(context).size.width;
+    deviceHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Form(

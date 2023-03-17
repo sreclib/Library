@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:srec_library/testangry.dart';
 
 import 'About_us.dart';
 import 'Fav.dart';
@@ -18,8 +17,12 @@ class Set1 extends StatefulWidget {
 }
 
 class _Set1State extends State<Set1> {
+   late double deviceHeight;
+  late double deviceWidth;
   @override
   Widget build(BuildContext context) {
+        deviceWidth = MediaQuery.of(context).size.width;
+    deviceHeight = MediaQuery.of(context).size.height;
     return WillPopScope(
         onWillPop: () async => false,
         child: Scaffold(

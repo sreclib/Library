@@ -2,8 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:srec_library/Settings.dart';
-import 'package:srec_library/bro.dart';
-import 'package:srec_library/testangry.dart';
 
 import 'Fav.dart';
 import 'Home.dart';
@@ -18,17 +16,24 @@ class Fav extends StatefulWidget {
 }
 
 class _Fav extends State<Fav> {
-  CollectionReference ref = FirebaseFirestore.instance.collection('users');
+  late double deviceHeight;
+  late double deviceWidth;
 
+  CollectionReference ref = FirebaseFirestore.instance
+      .collection('users')
+      .doc(FirebaseAuth.instance.currentUser!.uid)
+      .collection('fav');
   @override
   Widget build(BuildContext context) {
+        deviceWidth = MediaQuery.of(context).size.width;
+    deviceHeight = MediaQuery.of(context).size.height;
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
           backgroundColor: Color.fromARGB(255, 156, 83, 230),
-          title: const Text("Library"),
+          title: const Text("Wishlist"),
           // actions: <Widget>[
           //   IconButton(
           //       onPressed: () async {
@@ -44,7 +49,7 @@ class _Fav extends State<Fav> {
             //   child: SizedBox(child: buildFloatingSearchBar(context)),
             // ),
             Padding(
-              padding: const EdgeInsets.only(top: 15),
+              padding: const EdgeInsets.only(top: 0),
               child: StreamBuilder(
                 stream: ref.snapshots(),
                 builder: (context, AsyncSnapshot snapshot) {
@@ -97,7 +102,7 @@ class _Fav extends State<Fav> {
                           ),
                           iconColor: Color.fromARGB(255, 79, 18, 80),
                           title: Text(
-                            doc['Book id'],
+                            doc['Id'],
                             style: TextStyle(
                               fontSize: 18,
                             ),
@@ -113,22 +118,22 @@ class _Fav extends State<Fav> {
                                       margin:
                                           const EdgeInsets.fromLTRB(0, 0, 0, 0),
                                       child: Text(
-                                        'Book ID: ${doc['Book id']}\n',
+                                        'Book ID: ${doc['like']}\n',
                                         style: TextStyle(
                                           fontSize: 15,
                                         ),
                                       ),
                                     ),
-                                    Container(
-                                      margin:
-                                          const EdgeInsets.fromLTRB(0, 0, 0, 0),
-                                      child: Text(
-                                        'Author Name: ${doc['Author name']}',
-                                        style: TextStyle(
-                                          fontSize: 15,
-                                        ),
-                                      ),
-                                    ),
+                                    // Container(
+                                    //   margin:
+                                    //       const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                                    //   child: Text(
+                                    //     'Author Name: ${doc['Author name']}',
+                                    //     style: TextStyle(
+                                    //       fontSize: 15,
+                                    //     ),
+                                    //   ),
+                                    // ),
                                   ],
                                 ),
                               ],

@@ -1,16 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:srec_library/Color.dart';
 import 'package:srec_library/Fpasswrd.dart';
-import 'package:srec_library/Home.dart';
-import 'package:srec_library/Reset.dart';
 import 'package:srec_library/Sign_up.dart';
 
-import 'Admin_home.dart';
-import 'Admin_login.dart';
 import 'Auth.dart';
-import 'Flushbar.dart';
 
 class Staff_login extends StatefulWidget {
   const Staff_login({Key? key}) : super(key: key);
@@ -69,92 +63,15 @@ class _Staff_loginstate extends State<Staff_login> {
                   Padding(
                     padding:
                         const EdgeInsets.only(top: 320, right: 280, bottom: 10),
-                    child: Text(
-                      "LOGIN",
-                      style: GoogleFonts.montserrat(
-                  textStyle: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w600,
-                    color: Color.fromARGB(255, 118, 42, 131),
-                  ),)
-                    ),
+                    child: Text("LOGIN",
+                        style: GoogleFonts.montserrat(
+                          textStyle: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w600,
+                            color: Color.fromARGB(255, 118, 42, 131),
+                          ),
+                        )),
                   ),
-                  // Padding(
-                  //   padding: const EdgeInsets.only(top: 10, left: 20, right: 20),
-                  //   child: TextField(
-                  //     autocorrect: false,
-                  //     onChanged: (value) {
-                  //       emailId = value;
-                  //     },
-                  //     decoration: InputDecoration(
-                  //         fillColor: Colors.amber,
-                  //         // icon: Icon(Icons.person),
-                  //         border: const OutlineInputBorder(
-                  //           borderRadius: BorderRadius.all(
-                  //             Radius.circular(10.0),
-                  //           ),
-                  //         ),
-                  //         enabledBorder: OutlineInputBorder(
-                  //           borderRadius: BorderRadius.circular(30.0),
-                  //           borderSide:
-                  //               BorderSide(color: Color.fromARGB(255, 118, 42, 131)),
-                  //         ),
-                  //         focusedBorder: OutlineInputBorder(
-                  //           borderRadius: BorderRadius.circular(10.0),
-                  //           borderSide: BorderSide(
-                  //             color: Color.fromARGB(255, 118, 42, 131),
-                  //           ),
-                  //         ),
-                  //         prefixIcon: Icon(Icons.person, color: Colors.purple),
-                  //         labelText: 'Email id',
-                  //         labelStyle: TextStyle(
-                  //           color: Color.fromARGB(255, 118, 42, 131),
-                  //         ),
-                  //         hintText: '  name.roll_no@srec.ac.in'),
-                  //     controller: TextEditingController()..text = emailId,
-                  //   ),
-                  // ),
-                  // Padding(
-                  //   padding: const EdgeInsets.only(top: 15, left: 20, right: 20),
-                  //   child: TextField(
-                  //     autocorrect: false,
-                  //     obscureText: true,
-                  //     onChanged: (value) {
-                  //       password = value;
-                  //     },
-                  //     decoration: InputDecoration(
-                  //       fillColor: Colors.blue,
-                  //       border: const OutlineInputBorder(
-                  //         borderRadius: BorderRadius.all(
-                  //           Radius.circular(10.0),
-                  //         ),
-                  //       ),
-                  //       enabledBorder: OutlineInputBorder(
-                  //         borderRadius: BorderRadius.circular(30.0),
-                  //         borderSide:
-                  //             BorderSide(color: Color.fromARGB(255, 118, 42, 131)),
-                  //       ),
-                  //       focusedBorder: OutlineInputBorder(
-                  //         borderRadius: BorderRadius.circular(10.0),
-                  //         borderSide: BorderSide(
-                  //           color: Color.fromARGB(255, 118, 42, 131),
-                  //         ),
-                  //       ),
-                  //       prefixIcon: Icon(
-                  //         Icons.lock,
-                  //         color: Colors.purple,
-                  //       ),
-                  //       labelText: 'Password',
-                  //       labelStyle: TextStyle(
-                  //         color: Color.fromARGB(255, 118, 42, 131),
-                  //       ),
-                  //     ),
-                  //     controller: TextEditingController()
-                  //       ..text = password
-                  //       ..selection = TextSelection.collapsed(offset: password.length),
-                  //     inputFormatters: [LengthLimitingTextInputFormatter(8)],
-                  //   ),
-                  // ),
                   Padding(
                     padding:
                         const EdgeInsets.only(top: 20, right: 20, left: 20),
@@ -245,18 +162,12 @@ class _Staff_loginstate extends State<Staff_login> {
                                 ),
                               )),
                           onPressed: () async {
-                            // if (emailId == 'kavitha.123@srec.ac.in' &&
-                            //     password == '1234567890') {
-                            //   Navigator.push(
-                            //       context,
-                            //       MaterialPageRoute(
-                            //           builder: (context) => Admin_login()));
-                            // }
                             if (_formKey.currentState!.validate()) {
                               _formKey.currentState!.save();
 
                               AuthServices.signinUser(
                                   emailId, password, context);
+                           
                             }
                           },
                           child: Text('Login')),
@@ -301,12 +212,10 @@ class _Staff_loginstate extends State<Staff_login> {
                       // child: Text("Login"),
                     ),
                   ),
-
                   Row(
                     children: [
                       const Padding(
-                        padding:
-                            EdgeInsets.only(left: 100, top: 20, bottom: 0),
+                        padding: EdgeInsets.only(left: 100, top: 20, bottom: 0),
                       ),
                       TextButton(
                         onPressed: () {
@@ -332,12 +241,8 @@ class _Staff_loginstate extends State<Staff_login> {
                           ),
                         ),
                       ),
-                   
-                      
                     ],
                   ),
-                     
-               
                 ],
               )
             ],

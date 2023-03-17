@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:srec_library/Settings.dart';
-import 'package:srec_library/bro.dart';
-import 'package:srec_library/testangry.dart';
 
 
 import 'Fav.dart';
@@ -19,20 +17,23 @@ class My_book extends StatefulWidget {
 }
 
 class _My_book extends State<My_book> {
+   late double deviceHeight;
+  late double deviceWidth;
   CollectionReference ref = FirebaseFirestore.instance
       .collection('users')
       .doc(FirebaseAuth.instance.currentUser!.uid)
       .collection('lendbook');
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) {    deviceWidth = MediaQuery.of(context).size.width;
+    deviceHeight = MediaQuery.of(context).size.height;
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
           backgroundColor: Color.fromARGB(255, 156, 83, 230),
-          title: const Text("Library"),
+          title: const Text("My Books"),
           // actions: <Widget>[
           //   IconButton(
           //       onPressed: () async {

@@ -16,7 +16,11 @@ class Admin_home extends StatefulWidget {
 }
 
 class _Admin_homeState extends State<Admin_home> {
+   late double deviceHeight;
+  late double deviceWidth;
   Widget build(BuildContext context) {
+       deviceWidth = MediaQuery.of(context).size.width;
+    deviceHeight = MediaQuery.of(context).size.height;
     return Scaffold(
         appBar: AppBar(
             backgroundColor: Color.fromARGB(255, 114, 49, 158),

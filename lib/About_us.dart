@@ -9,7 +9,11 @@ class About_us extends StatefulWidget {
 }
 
 class _About_usState extends State<About_us> {
+   late double deviceHeight;
+  late double deviceWidth;
   Widget build(BuildContext context) {
+       deviceWidth = MediaQuery.of(context).size.width;
+    deviceHeight = MediaQuery.of(context).size.height;
     return Scaffold();
   }
 }

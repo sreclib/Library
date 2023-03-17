@@ -1,14 +1,10 @@
 import 'dart:typed_data';
-import 'package:srec_library/Settings.dart';
 
+import 'package:srec_library/Settings.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:srec_library/testangry.dart';
-
 import 'Color.dart';
 import 'Fav.dart';
 import 'Home.dart';
@@ -47,11 +43,14 @@ class _ProfileState extends State<Profile> {
             automaticallyImplyLeading: false,
             leadingWidth: 70,
             leading: TextButton(
+              style: ButtonStyle(
+                overlayColor: MaterialStateProperty.all(Colors.transparent),
+              ),
               child: Text(
                 "Cancel",
                 style: TextStyle(
                   fontSize: 17,
-                  color: Color.fromARGB(255, 118, 42, 131),
+                  color: Color.fromARGB(255, 77, 26, 86),
                 ),
               ),
               onPressed: () {
@@ -61,18 +60,16 @@ class _ProfileState extends State<Profile> {
             ),
             actions: [
               IconButton(
-                color: Color.fromARGB(255, 118, 42, 131),
+                color: Color.fromARGB(255, 77, 26, 86),
                 icon: Icon(Icons.menu),
-                onPressed: () {
-
-                },
+                onPressed: () {},
               ),
             ],
             title: Center(
               child: Text(
                 "Edit Profile",
                 style: TextStyle(
-                  color: Color.fromARGB(255, 118, 42, 131),
+                  color: Color.fromARGB(255, 77, 26, 86),
                 ),
               ),
             ),
@@ -106,15 +103,14 @@ class _ProfileState extends State<Profile> {
                                         border: Border.all(
                                           width: 4,
                                           color:
-                                              Color.fromARGB(255, 118, 42, 131),
+                                              Color.fromARGB(255, 77, 26, 86),
                                         ),
                                         shape: BoxShape.circle,
                                       ),
                                       child: const Center(
                                           child: Icon(
                                         Icons.person,
-                                        color:
-                                            Color.fromARGB(255, 118, 42, 131),
+                                        color: Color.fromARGB(255, 77, 26, 86),
                                         size: 120,
                                       )),
                                     )
@@ -123,7 +119,7 @@ class _ProfileState extends State<Profile> {
                                         border: Border.all(
                                           width: 4,
                                           color:
-                                              Color.fromARGB(255, 118, 42, 131),
+                                              Color.fromARGB(255, 77, 26, 86),
                                         ),
                                         shape: BoxShape.circle,
                                         // boxShadow: [
@@ -156,7 +152,7 @@ class _ProfileState extends State<Profile> {
                                     },
                                     icon: const Icon(
                                       Icons.close,
-                                      color: Color.fromARGB(255, 156, 83, 230),
+                                      color: Color.fromARGB(255, 77, 26, 86),
                                     ),
                                   ),
                                 ],
@@ -193,14 +189,14 @@ class _ProfileState extends State<Profile> {
                               ),
 
                               child: ListTile(
-                                splashColor: Color.fromARGB(255, 118, 42, 131),
+                                splashColor: Color.fromARGB(255, 77, 26, 86),
                                 title: Wrap(
                                   children: [
                                     Text(
                                       ' Name :  ' + snapshot.data['name'],
                                       style: TextStyle(
                                           color:
-                                              Color.fromARGB(255, 118, 42, 131),
+                                              Color.fromARGB(255, 77, 26, 86),
                                           fontSize: 17),
                                     ),
                                   ],
@@ -223,16 +219,15 @@ class _ProfileState extends State<Profile> {
                                 ),
 
                                 child: ListTile(
-
-                                  splashColor:
-                                      Color.fromARGB(255, 118, 42, 131),
+                                  splashColor: Color.fromARGB(255, 77, 26, 86),
                                   title: Wrap(
                                     children: [
                                       Text(
-                                        ' Email ID :  ' + snapshot.data['email'],
+                                        ' Email ID :  ' +
+                                            snapshot.data['email'],
                                         style: TextStyle(
-                                            color: Color.fromARGB(
-                                                255, 118, 42, 131),
+                                            color:
+                                                Color.fromARGB(255, 77, 26, 86),
                                             fontSize: 17),
                                       ),
                                     ],
@@ -316,7 +311,7 @@ class _ProfileState extends State<Profile> {
 
   Route _createRoute() {
     return PageRouteBuilder(
-      pageBuilder: (context, animation, secondaryAnimation) => Home(),
+      pageBuilder: (context, animation, secondaryAnimation) => const Home(),
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
         const begin = Offset(0, 0.8);
 
